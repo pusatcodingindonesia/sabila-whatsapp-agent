@@ -1,0 +1,555 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>SOP Admin Sabila</title>
+<meta name="robots" content="noindex">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sidebar outline (sticky) + one reading column. Chapters numbered because the SOP is read in order. */
+:root{
+  --bg:#f4f6f7; --surface:#ffffff; --ink:#14212b; --muted:#566774; --line:#d8e0e5;
+  --accent:#0a6b5e; --accent-soft:#e0f0ed; --on-accent:#ffffff;
+  --warn:#8a5200; --warn-soft:#fbefd9; --danger:#a3332b; --danger-soft:#fbe6e3;
+  --code-bg:#eaeff2; --cust:#eef1f3; --sab:#e0f0ed;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f161b; --surface:#16202a; --ink:#e6edf1; --muted:#95a6b2; --line:#2a3945;
+  --accent:#4cc4b1; --accent-soft:#12332f; --on-accent:#08201c;
+  --warn:#e8b45c; --warn-soft:#33260f; --danger:#f2918a; --danger-soft:#3a1c1a;
+  --code-bg:#1d2933; --cust:#1d2933; --sab:#12332f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f161b; --surface:#16202a; --ink:#e6edf1; --muted:#95a6b2; --line:#2a3945;
+  --accent:#4cc4b1; --accent-soft:#12332f; --on-accent:#08201c;
+  --warn:#e8b45c; --warn-soft:#33260f; --danger:#f2918a; --danger-soft:#3a1c1a;
+  --code-bg:#1d2933; --cust:#1d2933; --sab:#12332f; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 64px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.wrap{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;align-items:start}
+@media (max-width:899px){.wrap{grid-template-columns:minmax(0,1fr);gap:16px}}
+
+/* outline */
+aside{position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto;min-width:0}
+@media (max-width:899px){aside{position:static;max-height:none}}
+.toc{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 6px 8px}
+.toc summary{cursor:pointer;font-weight:600;font-size:14px;padding:10px 12px;list-style:none}
+.toc summary::-webkit-details-marker{display:none}
+@media (min-width:900px){.toc summary{pointer-events:none;color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase}}
+.toc ol{list-style:none;margin:0;padding:0}
+.toc a{display:flex;gap:10px;padding:6px 12px;border-radius:6px;color:var(--ink);text-decoration:none;font-size:14px;line-height:1.35}
+.toc a b{font-family:var(--mono);font-weight:500;color:var(--muted);min-width:1.4em}
+.toc a:hover{background:var(--code-bg)}
+.toc a.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.toc a.on b{color:var(--accent)}
+.toc .grp{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:10px 12px 2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+main{min-width:0;max-width:780px}
+header.top{padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+h1{font-size:clamp(26px,5vw,36px);line-height:1.15;margin:0 0 10px;font-weight:600;text-wrap:balance}
+.lede{color:var(--muted);margin:0;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:12.5px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--surface);color:var(--muted)}
+
+section{padding-top:40px}
+h2{display:flex;gap:12px;align-items:baseline;font-size:clamp(21px,3.4vw,26px);line-height:1.25;margin:0 0 12px;font-weight:600;text-wrap:balance}
+h2 .n{font-family:var(--mono);font-size:.62em;font-weight:500;color:var(--on-accent);background:var(--accent);border-radius:6px;padding:2px 8px;transform:translateY(-2px)}
+h3{font-size:17px;margin:26px 0 8px;font-weight:600}
+p{margin:0 0 12px;max-width:68ch}
+ul,ol{margin:0 0 14px;padding-left:1.3em;max-width:68ch}
+li{margin-bottom:6px}
+code{font-family:var(--mono);font-size:.88em;background:var(--code-bg);padding:1px 6px;border-radius:5px;white-space:nowrap}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface);margin:12px 0 16px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14.5px}
+th,td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px solid var(--line)}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--code-bg)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:500}
+td code{white-space:normal}
+
+.callout{border-radius:10px;padding:14px 16px;margin:16px 0;border:1px solid var(--line);background:var(--surface);max-width:68ch}
+.callout.key{background:var(--accent-soft);border-color:transparent}
+.callout.warn{background:var(--warn-soft);border-color:transparent}
+.callout.stop{background:var(--danger-soft);border-color:transparent}
+.callout b.t{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.callout.key b.t{color:var(--accent)} .callout.warn b.t{color:var(--warn)} .callout.stop b.t{color:var(--danger)}
+.callout p:last-child,.callout ul:last-child{margin-bottom:0}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.card .big{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--accent);display:block;margin-bottom:2px}
+.card span.l{font-size:14px;color:var(--muted)}
+
+.cmd{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.copy{font:inherit;font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:6px;padding:2px 8px;cursor:pointer}
+.copy:hover{color:var(--accent);border-color:var(--accent)}
+
+pre.line{font-family:var(--mono);font-size:13px;line-height:1.5;background:var(--code-bg);border-radius:8px;padding:12px 14px;margin:8px 0 14px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;max-width:68ch}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0 14px}
+.fields div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:13.5px;color:var(--muted)}
+.fields div b{display:block;font-family:var(--mono);font-weight:500;font-size:12.5px;color:var(--accent);margin-bottom:2px}
+
+.diagram{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:6px;margin:12px 0 14px}
+.diagram svg{display:block;min-width:620px;width:100%;height:auto;font-family:var(--sans)}
+.diagram .t{fill:var(--ink)} .diagram .q{fill:var(--muted)}
+.diagram .bx{fill:none;stroke:var(--muted);stroke-width:1.25}
+.diagram .hot{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+.diagram .ln{fill:none;stroke:var(--muted);stroke-width:1.25}
+
+.flt{width:100%;max-width:420px;font:inherit;font-size:15px;padding:9px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);margin:4px 0 6px}
+#kasus tr[hidden]{display:none}
+.empty{color:var(--muted);font-size:14px}
+
+/* case studies */
+.case{border:1px solid var(--line);background:var(--surface);border-radius:12px;margin:16px 0;overflow:hidden}
+.case>header{display:flex;gap:12px;align-items:baseline;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--code-bg)}
+.case>header .k{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:500;white-space:nowrap}
+.case>header h3{margin:0;font-size:17px}
+.case .body{padding:14px 16px 6px}
+.case .lbl{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px;font-weight:600}
+.case .lbl:first-child{margin-top:0}
+.chat{display:flex;flex-direction:column;gap:8px;margin:6px 0 10px}
+.msg{max-width:min(86%,520px);padding:8px 12px;border-radius:12px;font-size:14.5px;line-height:1.45}
+.msg i{display:block;font-style:normal;font-size:11.5px;font-weight:600;letter-spacing:.04em;color:var(--muted);margin-bottom:1px}
+.msg.c{background:var(--cust);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.s{background:var(--sab);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.a{background:var(--accent);color:var(--on-accent);align-self:flex-end;border-bottom-right-radius:4px}
+.msg.a i{color:var(--on-accent);opacity:.8}
+.msg.sys{align-self:center;background:var(--warn-soft);color:var(--warn);font-size:12.5px;max-width:100%;border-radius:8px}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0 0 10px}
+.steps li{counter-increment:s;position:relative;padding-left:34px;margin-bottom:8px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-family:var(--mono);font-size:12.5px;font-weight:500;display:grid;place-items:center}
+.learn{background:var(--accent-soft);border-radius:8px;padding:10px 14px;margin:6px 0 14px;font-size:14.5px;max-width:68ch}
+.learn b{color:var(--accent)}
+.tl{list-style:none;margin:6px 0 12px;padding:0;border-left:2px solid var(--line);margin-left:6px}
+.tl li{padding:0 0 12px 18px;position:relative;margin:0}
+.tl li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.tl b{font-family:var(--mono);font-weight:500;color:var(--accent);margin-right:6px}
+
+details.q{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:8px 0;max-width:68ch}
+details.q summary{cursor:pointer;padding:12px 16px;font-weight:500;list-style:none;display:flex;gap:10px}
+details.q summary::-webkit-details-marker{display:none}
+details.q summary::before{content:"?";font-family:var(--mono);color:var(--accent);font-weight:600}
+details.q[open] summary{border-bottom:1px solid var(--line)}
+details.q .ans{padding:10px 16px 4px;color:var(--ink)}
+
+/* checklist */
+.chk{list-style:none;padding:0;margin:8px 0 16px}
+.chk li{margin:0}
+.chk label{display:flex;gap:12px;align-items:flex-start;padding:9px 12px;border-radius:8px;cursor:pointer}
+.chk label:hover{background:var(--code-bg)}
+.chk input{margin-top:5px;width:18px;height:18px;accent-color:var(--accent);flex:none}
+.chk input:checked+span{color:var(--muted);text-decoration:line-through}
+.todo{display:inline-block;font-family:var(--mono);font-size:12px;background:var(--warn-soft);color:var(--warn);border-radius:5px;padding:0 6px}
+.prog{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.reset{font:inherit;font-size:12.5px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:6px;padding:3px 10px;cursor:pointer;margin-left:8px}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
+</style>
+
+<div class="wrap">
+<aside>
+  <details class="toc" id="toc" open>
+    <summary>Daftar isi</summary>
+    <ol>
+      <li class="grp">Pahami</li>
+      <li><a href="#ringkasan"><b>1</b>Ringkasan</a></li>
+      <li><a href="#pemicu"><b>2</b>Kapan Sabila menyerahkan chat</a></li>
+      <li><a href="#handover"><b>3</b>Membaca pesan HANDOVER</a></li>
+      <li><a href="#status"><b>4</b>Alur status dan batas waktu</a></li>
+      <li class="grp">Kerjakan</li>
+      <li><a href="#langkah"><b>5</b>Langkah menangani satu chat</a></li>
+      <li><a href="#perintah"><b>6</b>Perintah di self-chat</a></li>
+      <li><a href="#kasus"><b>7</b>Panduan per kasus</a></li>
+      <li class="grp">Latihan</li>
+      <li><a href="#studi"><b>8</b>Studi kasus</a></li>
+      <li><a href="#kuis"><b>9</b>Uji pemahaman</a></li>
+      <li class="grp">Aturan dan rutin</li>
+      <li><a href="#larangan"><b>10</b>Larangan dan jebakan</a></li>
+      <li><a href="#pengetahuan"><b>11</b>Mengubah isi pengetahuan toko</a></li>
+      <li><a href="#harian"><b>12</b>Daftar periksa harian</a></li>
+      <li><a href="#owner"><b>13</b>Yang belum diisi owner</a></li>
+    </ol>
+  </details>
+</aside>
+
+<main>
+<header class="top">
+  <p class="eyebrow">SOP · Admin Rumah Kaos Ciamis</p>
+  <h1>Menangani chat yang diserahkan Sabila</h1>
+  <p class="lede">Panduan kerja untuk admin yang memegang WhatsApp nomor toko. Baca bab 1 sampai 6 sekali, lalu pakai bab 7 dan 8 sebagai rujukan saat bekerja.</p>
+  <div class="meta"><span class="chip">Diperbarui 22 Okt 2026</span><span class="chip">Untuk: admin</span><span class="chip">Bacaan awal ± 15 menit</span></div>
+</header>
+
+<section id="ringkasan">
+  <h2><span class="n">1</span>Ringkasan</h2>
+  <p>Sabila adalah asisten WhatsApp Rumah Kaos Ciamis. Ia melayani pelanggan 24 jam untuk pertanyaan yang jawabannya sudah ada di catatan toko. Begitu pertanyaannya menyangkut uang, keputusan, atau hal yang belum ada datanya, Sabila <b>menyerahkan chat ke admin</b> dan berhenti membalas sampai admin selesai.</p>
+  <div class="callout key"><b class="t">Aturan paling penting</b><p>Balas pelanggan <b>langsung dari WhatsApp nomor toko</b> (HP atau WhatsApp Web). Dengan begitu Sabila otomatis diam selama 60 menit.</p></div>
+  <div class="cards">
+    <div class="card"><span class="big">10 mnt</span><span class="l">target balasan pertama sejak HANDOVER masuk</span></div>
+    <div class="card"><span class="big">60 mnt</span><span class="l">Sabila diam sejak balasan admin terakhir</span></div>
+    <div class="card"><span class="big">30 mnt</span><span class="l">chat belum dibalas: sistem minta maaf, Sabila aktif lagi</span></div>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>Sabila mengerjakan</th><th>Admin mengerjakan</th></tr></thead>
+    <tbody>
+      <tr><td>Harga dan ukuran, warna, bahan, cek ongkir, alur pesanan, meminta bukti transfer</td><td>Memastikan dana masuk, harga grosir dan nego, retur dan komplain</td></tr>
+      <tr><td>Mengumpulkan nama, nomor HP, dan alamat pelanggan</td><td>Mengirim resi, foto atau katalog desain, mengubah pesanan</td></tr>
+      <tr><td>Menyerahkan chat ke admin dengan ringkasan lengkap</td><td>Menjawab stok per warna dan ukuran, jam buka, biaya desain</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="pemicu">
+  <h2><span class="n">2</span>Kapan Sabila menyerahkan chat</h2>
+  <p>Ada sebelas kelompok situasi. Kalau ragu, Sabila memperlakukannya sebagai pemicu. Untuk hal yang jawabannya sudah ada di catatan toko, Sabila menjawab sendiri.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Kelompok</th><th>Contoh pemicu</th></tr></thead>
+    <tbody>
+      <tr><td>Permintaan bicara dengan orang</td><td>"Mau chat admin", "halo min"</td></tr>
+      <tr><td>Uang</td><td>Memastikan dana sudah masuk (termasuk setelah pelanggan kirim bukti transfer), COD, DP, pelunasan, bayar tempo, metode bayar selain transfer BCA, nominal ganti rugi, refund</td></tr>
+      <tr><td>Harga</td><td>Nego atau diskon, harga grosir, pesanan 10 kaos atau lebih, reseller atau dropship</td></tr>
+      <tr><td>Komplain dan retur</td><td>Kaos cacat, salah kirim, belum sampai, retur, tukar ukuran, ubah warna, ukuran, atau nama pesanan</td></tr>
+      <tr><td>Desain dan produk</td><td>Custom desain, desain di luar pilihan Logo/A5/A4/A3, permintaan foto, gambar, atau katalog desain, kaos anak atau lengan panjang, stok per warna dan ukuran, ukuran jumbo</td></tr>
+      <tr><td>Janji produksi</td><td>Deadline tanggal tertentu, "jadi hari ini", perubahan pesanan setelah order masuk</td></tr>
+      <tr><td>Hukum</td><td>Logo atau desain brand berlisensi, pertanyaan apakah desain "aman" hak cipta</td></tr>
+      <tr><td>Logistik berisiko</td><td>Tujuan Batam (bea masuk), paket hilang atau rusak, ubah alamat setelah kirim</td></tr>
+      <tr><td>Status pesanan</td><td>Pelanggan menanyakan pesanan yang sedang berjalan atau resi yang belum ada</td></tr>
+      <tr><td>Ongkir</td><td>Cek ongkir gagal atau alamat tidak ditemukan</td></tr>
+      <tr><td>Data belum ada</td><td>Jam buka toko, jam admin, biaya desain, minimal order, lama pengerjaan pesanan banyak, produk mana yang ready</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="handover">
+  <h2><span class="n">3</span>Membaca pesan HANDOVER</h2>
+  <p>Saat menyerahkan chat, Sabila mengirim <b>satu baris ringkasan</b> ke self-chat nomor toko, yaitu chat WhatsApp nomor toko ke dirinya sendiri (<i>Message yourself</i>). Pelanggan tidak pernah melihat pesan ini. Admin harus membuka chat itu secara rutin.</p>
+  <p>Formatnya:</p>
+  <pre class="line">HANDOVER | Nama | No. WA | No. pesanan | Kebutuhan | Detail | Mood</pre>
+  <p>Contoh (data samaran):</p>
+  <pre class="line">HANDOVER | Bu Rina | 62812***4821 | - | Harga grosir 15 pcs sablon A4 | 15 kaos combed 30s, A4 depan, Navy L 8 pcs + XL 7 pcs, tujuan Coblong Bandung, ongkir sudah dicek Rp14.000 | Mood: tenang</pre>
+  <div class="fields">
+    <div><b>Nama, No. WA</b>Cari chat pelanggan itu di WhatsApp nomor toko</div>
+    <div><b>No. pesanan</b>Tanda strip (-) berarti belum ada pesanan</div>
+    <div><b>Kebutuhan</b>Alasan chat diserahkan. Mulai dari sini</div>
+    <div><b>Detail</b>Desain, warna, ukuran, jumlah, tujuan, ongkir yang sudah dicek. Jangan tanya ulang ke pelanggan</div>
+    <div><b>Mood</b>Tenang, kesal, atau urgent. Kesal dan urgent didahulukan</div>
+  </div>
+  <div class="callout warn"><b class="t">Bila muncul HANDOVER-DITOLAK</b><p>Artinya identitas pelanggan tidak valid. Cari chat pelanggannya secara manual.</p></div>
+</section>
+
+<section id="status">
+  <h2><span class="n">4</span>Alur status dan batas waktu</h2>
+  <p>Setiap chat punya satu dari tiga status. Saat MENUNGGU_ADMIN atau ADMIN, Sabila tidak membalas pelanggan sama sekali, jadi pelanggan hanya terlayani kalau admin bergerak.</p>
+  <div class="diagram">
+    <svg viewBox="0 0 760 292" role="img" aria-label="Alur status chat: NORMAL ke MENUNGGU_ADMIN ke ADMIN, dan kembali ke NORMAL lewat batas 30 dan 60 menit" fill="none">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--muted)"/></marker></defs>
+      <g class="ln"><path d="M180 120H300" marker-end="url(#ar)"/><path d="M460 120H580" marker-end="url(#ar)"/><path d="M380 156V206H130V156" marker-end="url(#ar)"/><path d="M660 156V262H70V156" marker-end="url(#ar)"/></g>
+      <rect class="bx" x="20" y="84" width="160" height="72" rx="8"/><text class="t" x="100" y="108" text-anchor="middle" font-size="13" font-weight="600">NORMAL</text><text class="q" x="100" y="128" text-anchor="middle" font-size="11.5">Sabila yang melayani</text>
+      <rect class="hot" x="300" y="84" width="160" height="72" rx="8"/><text class="t" x="380" y="108" text-anchor="middle" font-size="13" font-weight="600">MENUNGGU_ADMIN</text><text class="q" x="380" y="128" text-anchor="middle" font-size="11.5">Sabila diam total</text><text class="q" x="380" y="144" text-anchor="middle" font-size="11.5">menit 10: pengingat</text>
+      <rect class="bx" x="580" y="84" width="160" height="72" rx="8"/><text class="t" x="660" y="108" text-anchor="middle" font-size="13" font-weight="600">ADMIN</text><text class="q" x="660" y="128" text-anchor="middle" font-size="11.5">Admin yang menjawab</text><text class="q" x="660" y="144" text-anchor="middle" font-size="11.5">Sabila diam</text>
+      <text class="q" x="240" y="100" text-anchor="middle" font-size="11.5">Sabila kirim</text><text class="q" x="240" y="113" text-anchor="middle" font-size="11.5">HANDOVER</text>
+      <text class="q" x="520" y="100" text-anchor="middle" font-size="11.5">Admin membalas</text><text class="q" x="520" y="113" text-anchor="middle" font-size="11.5">dari akun toko</text>
+      <text class="q" x="255" y="176" text-anchor="middle" font-size="11.5">30 menit tanpa balasan admin:</text><text class="q" x="255" y="191" text-anchor="middle" font-size="11.5">Sabila minta maaf ke pelanggan</text>
+      <text class="q" x="365" y="248" text-anchor="middle" font-size="11.5">60 menit sejak balasan admin terakhir: Sabila aktif lagi</text>
+    </svg>
+  </div>
+  <h3>Batas waktu yang perlu dihafal</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Waktu</th><th>Yang terjadi</th></tr></thead>
+    <tbody>
+      <tr><td>Menit ke-10 sejak HANDOVER, belum dibalas</td><td>Sistem mengirim pengingat ke self-chat (sekali)</td></tr>
+      <tr><td>Menit ke-30, belum dibalas</td><td>Sistem meminta maaf ke pelanggan, lalu <b>Sabila aktif lagi</b>. Kalau pertanyaannya di luar kemampuannya, ia menyerahkan chat lagi</td></tr>
+      <tr><td>60 menit sejak balasan admin terakhir</td><td>Sabila aktif lagi dan melanjutkan percakapan</td></tr>
+    </tbody>
+  </table></div>
+  <p>Jadi 30 menit berlaku untuk chat yang <b>belum dibalas admin</b>, dan 60 menit berlaku <b>sesudah admin benar-benar membalas</b>. Setiap balasan admin yang baru menyetel ulang hitungan 60 menit.</p>
+</section>
+
+<section id="langkah">
+  <h2><span class="n">5</span>Langkah menangani satu chat</h2>
+  <p>Target: <b>balas pelanggan dalam 10 menit</b> sejak pesan HANDOVER masuk.</p>
+  <ol class="steps">
+    <li>Buka self-chat nomor toko dan baca baris <code>HANDOVER</code>. Kalau ada beberapa, kerjakan yang Mood-nya <i>urgent</i> atau <i>kesal</i> lebih dulu.</li>
+    <li>Cari chat pelanggan itu di WhatsApp nomor toko (dari nama atau nomor WA). Baca riwayatnya: Sabila sudah mengumpulkan data dan menjawab sebagian, jadi jangan menanyakan ulang.</li>
+    <li><b>Balas langsung ke pelanggan dari WhatsApp nomor toko.</b> Boleh dari HP atau WhatsApp Web. Tidak perlu perintah khusus. Sejak balasan pertama, Sabila otomatis diam.</li>
+    <li>Tangani sampai tuntas (lihat bab 7). Setiap balasan admin yang baru menyetel ulang waktu diam Sabila menjadi 60 menit lagi.</li>
+    <li>Perkirakan penanganan lebih dari 60 menit? Ketik <code>#diam &lt;nomor&gt;</code> di self-chat supaya Sabila tidak menyela.</li>
+    <li>Selesai dan ingin Sabila melanjutkan? Ketik <code>#aktif &lt;nomor&gt;</code> di self-chat, atau biarkan 60 menit berlalu tanpa balasan baru. Sabila lalu membaca riwayat (termasuk balasan admin) dan melanjutkan dengan nyambung, bukan menyapa ulang.</li>
+    <li>Catat pesanan yang jadi di tempat pencatatan toko: <span class="todo">ISI: tempat dan cara mencatat order</span></li>
+  </ol>
+</section>
+
+<section id="perintah">
+  <h2><span class="n">6</span>Perintah di self-chat</h2>
+  <p>Ketik perintah ini di self-chat nomor toko. <code>&lt;nomor&gt;</code> adalah nomor WA pelanggan, misalnya yang tertera di baris HANDOVER.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Perintah</th><th>Fungsi</th><th>Kapan dipakai</th></tr></thead>
+    <tbody>
+      <tr><td><div class="cmd"><code>#status</code><button class="copy" data-c="#status">salin</button></div></td><td>Menampilkan semua chat yang tidak normal beserta sisa waktunya</td><td>Awal shift dan saat bingung chat mana yang menunggu</td></tr>
+      <tr><td><div class="cmd"><code>#diam &lt;nomor&gt;</code></div></td><td>Sabila diam di chat itu (lihat peringatan di bawah)</td><td>Penanganan panjang, atau Anda menghubungi pelanggan dari nomor lain</td></tr>
+      <tr><td><div class="cmd"><code>#aktif &lt;nomor&gt;</code></div></td><td>Mengembalikan chat itu ke Sabila sekarang</td><td>Urusan selesai</td></tr>
+      <tr><td><div class="cmd"><code>#diam semua</code><button class="copy" data-c="#diam semua">salin</button></div></td><td>Sabila diam di semua chat</td><td>Gangguan, atau toko tutup mendadak</td></tr>
+      <tr><td><div class="cmd"><code>#aktif semua</code><button class="copy" data-c="#aktif semua">salin</button></div></td><td>Mengembalikan semua chat ke Sabila</td><td>Setelah <code>#diam semua</code></td></tr>
+    </tbody>
+  </table></div>
+  <p>Contoh balasan <code>#status</code>: <code>62812***4821: ADMIN (sisa ~43 menit)</code> atau <code>62856***7190: MENUNGGU_ADMIN (sudah 12 menit)</code>. Kalau kosong, balasannya "Tidak ada chat yang sedang ditangani admin."</p>
+  <div class="callout warn"><b class="t">Awas: lama efek #diam belum teruji</b><p>Jangan mengandalkan <code>#diam &lt;nomor&gt;</code> untuk penahanan yang sangat lama. Dokumentasi sistem menyebutnya tanpa batas waktu, tetapi dari kodenya ada indikasi chat tetap kembali normal sekitar 60 menit kemudian bila tidak ada <code>#aktif</code>. Selama belum diuji, pantau dengan <code>#status</code> dan ulangi <code>#diam</code> bila perlu.</p></div>
+</section>
+
+<section id="kasus">
+  <h2><span class="n">7</span>Panduan per kasus</h2>
+  <p>Sabila sudah mengumpulkan data dan menahan diri dari menjanjikan apa pun. Berikut yang dikerjakan admin untuk tiap jenis serah-terima. Ketik kata kunci untuk menyaring.</p>
+  <input class="flt" id="flt" type="search" placeholder="Cari kasus, misalnya: transfer, retur, grosir" aria-label="Cari kasus">
+  <div class="tw" id="kasus"><table>
+    <thead><tr><th>Kasus</th><th>Yang dikerjakan admin</th><th>Catatan</th></tr></thead>
+    <tbody>
+      <tr><td>Pesanan grosir (10 kaos atau lebih), reseller</td><td>Tawarkan harga grosir sesuai kebijakan toko, hitung ulang ongkir bila perlu</td><td>Harga grosir belum ada di catatan toko, putuskan di tempat</td></tr>
+      <tr><td>Nego atau diskon</td><td>Putuskan, lalu sampaikan</td><td>Sabila sudah menyebut harga resmi</td></tr>
+      <tr><td>Kaos cacat, salah kirim, belum sampai</td><td>Minta nomor pesanan dan foto barang, lalu tangani dan sampaikan solusinya</td><td>Kebijakan retur toko belum diisi: tanyakan ke owner</td></tr>
+      <tr><td>Retur, tukar ukuran, refund</td><td>Putuskan sesuai kebijakan yang berlaku</td><td>Sabila dilarang menyebut kebijakan apa pun sebelum template diisi</td></tr>
+      <tr><td>Pelanggan sudah transfer</td><td>Cek mutasi rekening BCA 1380483064 a.n. Ade Cucu, lalu kabari pelanggan</td><td>Sabila tidak bisa melihat mutasi dan tidak pernah menyatakan dana masuk</td></tr>
+      <tr><td>COD, DP, pelunasan, bayar tempo</td><td>Putuskan sesuai aturan toko</td><td>COD untuk order WhatsApp belum diaktifkan</td></tr>
+      <tr><td>Status pesanan dan resi</td><td>Cek ke bagian produksi atau pengiriman, kirim resi lewat chat</td><td>Sabila tidak punya data pesanan berjalan</td></tr>
+      <tr><td>Foto, gambar, atau katalog desain</td><td>Kirim file dari nomor toko</td><td>Sabila tidak memegang file gambar</td></tr>
+      <tr><td>Custom desain, ukuran sablon di luar pilihan</td><td>Konsultasi desain dan beri harga</td><td>Pilihan baku: Logo, A5, A4, A3</td></tr>
+      <tr><td>Stok warna atau ukuran, jam buka, biaya desain, minimal order</td><td>Jawab sesuai kondisi sebenarnya</td><td>Datanya belum ada di catatan toko. Beri tahu owner agar ditambahkan</td></tr>
+      <tr><td>Kaos anak atau lengan panjang</td><td>Beri informasi bila ada</td><td>Catatan toko hanya memuat kaos lengan pendek dewasa</td></tr>
+      <tr><td>Ubah pesanan atau alamat setelah order masuk atau kirim</td><td>Cek status produksi atau pengiriman dulu, baru jawab</td><td>Jangan menjanjikan sebelum dicek</td></tr>
+      <tr><td>Deadline tanggal tertentu, "jadi hari ini"</td><td>Cek jadwal produksi, jawab jujur</td><td>Sabila tidak menjanjikan tanggal</td></tr>
+      <tr><td>Logo brand berlisensi, hak cipta</td><td>Putuskan sendiri atau tanya owner</td><td>Sabila tidak menyatakan desain "aman"</td></tr>
+      <tr><td>Tujuan Batam, paket hilang atau rusak</td><td>Tangani langsung, termasuk bea masuk dan klaim kurir</td><td>Perlu keputusan manual</td></tr>
+      <tr><td>Cek ongkir gagal</td><td>Hitung ongkir manual, atau minta kecamatan dan kelurahan yang benar</td><td>Biasanya alamat tidak ditemukan</td></tr>
+    </tbody>
+  </table></div>
+  <p class="empty" id="flt-empty" hidden>Tidak ada kasus yang cocok. Coba kata lain.</p>
+</section>
+
+<section id="studi">
+  <h2><span class="n">8</span>Studi kasus</h2>
+  <p>Lima situasi sederhana untuk gambaran kerja sehari-hari. Percakapan di bawah hanya <b>ilustrasi</b>; nama, jam, dan sebagian angka dikarang. Bagian bertanda <span class="todo">ISI</span> belum ditetapkan owner, jadi jangan ditiru sebagai aturan.</p>
+
+  <article class="case">
+    <header><span class="k">KASUS A</span><h3>Pesanan grosir 15 kaos</h3></header>
+    <div class="body">
+      <div class="lbl">Yang terjadi di chat pelanggan</div>
+      <div class="chat">
+        <div class="msg c"><i>BU RINA</i>Kak, mau pesan kaos sablon A4 depan 15 pcs buat seragam. Ada harga grosir?</div>
+        <div class="msg s"><i>SABILA</i>Untuk pesanan sebanyak itu saya teruskan ke admin ya kak, nanti admin bantu langsung.</div>
+      </div>
+      <div class="lbl">Yang muncul di self-chat (14:02)</div>
+      <pre class="line">HANDOVER | Bu Rina | 62812***4821 | - | Harga grosir 15 pcs sablon A4 | 15 kaos combed 30s, A4 depan, Navy L 8 pcs + XL 7 pcs, tujuan Coblong Bandung, ongkir sudah dicek Rp14.000 | Mood: tenang</pre>
+      <div class="lbl">Langkah admin</div>
+      <ol class="steps">
+        <li>Baca baris HANDOVER dan riwayat chat. Warna, ukuran, jumlah, dan tujuan sudah lengkap, jadi tidak perlu ditanyakan lagi.</li>
+        <li>Harga grosir belum ada di catatan toko. Putuskan sesuai arahan owner; kalau belum ada arahan, tanya owner dulu.</li>
+        <li>Balas dari WhatsApp nomor toko sebelum 14:12.</li>
+        <li>Setelah pelanggan setuju total harga, baru berikan nomor rekening.</li>
+        <li>Sudah beres? Ketik <code>#aktif 62812xxxxxxx</code> di self-chat (ganti dengan nomor lengkap pelanggan), atau biarkan 60 menit berlalu.</li>
+      </ol>
+      <div class="chat">
+        <div class="msg a"><i>ADMIN (CONTOH BALASAN)</i>Halo Bu Rina, saya [nama admin] dari Rumah Kaos Ciamis. Untuk 15 kaos A4 depan Navy (L 8, XL 7) ke Bandung, harga per kaosnya Rp[harga grosir] dan ongkir sekitar Rp14.000. Mau kami lanjutkan?</div>
+      </div>
+      <div class="learn"><b>Pelajaran:</b> baca dulu sebelum bertanya. Data yang sudah dikumpulkan Sabila tidak ditanyakan ulang, dan harga yang belum ditetapkan tidak boleh dikarang.</div>
+    </div>
+  </article>
+
+  <article class="case">
+    <header><span class="k">KASUS B</span><h3>Pelanggan sudah transfer</h3></header>
+    <div class="body">
+      <div class="lbl">Yang terjadi di chat pelanggan</div>
+      <div class="chat">
+        <div class="msg c"><i>PELANGGAN</i>Sudah transfer ya kak, ini bukti transfernya.</div>
+        <div class="msg s"><i>SABILA</i>Terima kasih kak. Saya teruskan ke admin untuk dicek dulu ya.</div>
+        <div class="msg sys">HANDOVER | … | Kebutuhan: cek dana masuk, bukti transfer diterima | …</div>
+      </div>
+      <div class="lbl">Langkah admin</div>
+      <ol class="steps">
+        <li>Buka mutasi rekening BCA 1380483064 a.n. Ade Cucu.</li>
+        <li>Cocokkan nominal yang masuk dengan total pesanan (kaos + ongkir).</li>
+        <li>Sudah masuk: balas ke pelanggan bahwa pembayaran diterima, lalu catat pesanan <span class="todo">ISI: tempat mencatat</span>.</li>
+        <li>Belum terlihat: jawab apa adanya ("masih kami cek, kami kabari lagi"). Jangan menyatakan sudah masuk.</li>
+      </ol>
+      <div class="learn"><b>Pelajaran:</b> bukti transfer dari pelanggan bukan bukti dana masuk. Hanya mutasi rekening yang menentukan.</div>
+    </div>
+  </article>
+
+  <article class="case">
+    <header><span class="k">KASUS C</span><h3>Pelanggan kesal: ukuran salah</h3></header>
+    <div class="body">
+      <div class="lbl">Yang muncul di self-chat (09:40)</div>
+      <pre class="line">HANDOVER | Mas Dodi | 62813***0207 | (nomor pesanan) | Komplain kaos salah ukuran | Pesan L, yang datang M, sudah 3 hari belum ada kabar | Mood: kesal</pre>
+      <div class="lbl">Langkah admin</div>
+      <ol class="steps">
+        <li>Mood kesal berarti didahulukan dari HANDOVER lain yang tenang.</li>
+        <li>Buka chat, baca riwayat, balas dengan minta maaf dan <b>minta foto barang</b> serta nomor pesanan bila belum ada.</li>
+        <li>Kebijakan retur dan tukar ukuran belum diisi owner <span class="todo">ISI</span>. Jangan menjanjikan tukar atau refund sebelum ada keputusan; hubungi owner lalu sampaikan solusinya.</li>
+        <li>Kabari pelanggan secara berkala supaya tidak merasa diabaikan. Setiap balasan menyetel ulang waktu diam Sabila.</li>
+      </ol>
+      <div class="chat">
+        <div class="msg a"><i>ADMIN (CONTOH BALASAN)</i>Mohon maaf atas ketidaknyamanannya, Mas Dodi. Boleh kirim foto kaos yang diterima beserta nomor pesanannya? Kami cek dan kabari solusinya secepatnya.</div>
+      </div>
+      <div class="learn"><b>Pelajaran:</b> mengakui masalah dan meminta bukti boleh dilakukan segera. Menjanjikan solusi sebelum kebijakan jelas tidak boleh.</div>
+    </div>
+  </article>
+
+  <article class="case">
+    <header><span class="k">KASUS D</span><h3>Perlu menelepon pelanggan dari HP pribadi</h3></header>
+    <div class="body">
+      <p>Pelanggan desain custom meminta bicara lewat telepon, dan admin hanya bisa memakai HP pribadi untuk itu.</p>
+      <ol class="steps">
+        <li>Sebelum menghubungi, ketik <code>#diam &lt;nomor&gt;</code> di self-chat nomor toko. Tanpa ini, Sabila tetap menjawab pesan pelanggan dan bisa bertabrakan dengan Anda, karena sistem tidak melihat balasan dari nomor pribadi.</li>
+        <li>Lakukan percakapan, lalu catat hasilnya di chat nomor toko supaya riwayatnya lengkap.</li>
+        <li>Selesai: ketik <code>#aktif &lt;nomor&gt;</code>.</li>
+        <li>Penanganan panjang? Cek <code>#status</code> secara berkala, karena lama efek <code>#diam</code> belum teruji.</li>
+      </ol>
+      <div class="learn"><b>Pelajaran:</b> sistem hanya "melihat" admin lewat akun WhatsApp nomor toko. Di luar itu, beri tahu sistem dengan perintah.</div>
+    </div>
+  </article>
+
+  <article class="case">
+    <header><span class="k">KASUS E</span><h3>HANDOVER masuk saat sedang sibuk</h3></header>
+    <div class="body">
+      <ul class="tl">
+        <li><b>14:00</b>HANDOVER masuk ke self-chat. Admin belum melihat.</li>
+        <li><b>14:10</b>Sistem mengirim pengingat ke self-chat. Admin masih belum membalas.</li>
+        <li><b>14:30</b>Sistem meminta maaf ke pelanggan, lalu Sabila aktif lagi. Kalau pertanyaannya di luar kemampuannya, ia menyerahkan chat sekali lagi dan siklus mulai dari awal.</li>
+      </ul>
+      <div class="learn"><b>Pelajaran:</b> pengingat bukan jalan keluar. Pelanggan sudah menunggu 30 menit sebelum menerima permintaan maaf. Awali shift dengan <code>#status</code> dan buka self-chat tiap kali ada jeda.</div>
+    </div>
+  </article>
+</section>
+
+<section id="kuis">
+  <h2><span class="n">9</span>Uji pemahaman</h2>
+  <p>Jawab dulu dalam hati, lalu buka jawabannya.</p>
+  <details class="q"><summary>Admin membalas pelanggan dari HP pribadi. Apa yang terjadi pada Sabila?</summary><div class="ans"><p>Sabila tidak tahu ada admin, jadi tetap menjawab dan bisa bertabrakan dengan balasan Anda. Balas dari nomor toko, atau ketik <code>#diam &lt;nomor&gt;</code> lebih dulu.</p></div></details>
+  <details class="q"><summary>Admin membalas terakhir pukul 10.00. Pelanggan menulis lagi pukul 10.50 dan tidak ada yang menjawab. Siapa yang menjawab, dan kapan?</summary><div class="ans"><p>Belum ada yang menjawab pada 10.50 karena Sabila masih diam. Sabila aktif lagi pukul 11.00, yaitu 60 menit sejak balasan admin terakhir, dan melanjutkan percakapan. Sebaiknya admin menjawab sebelum itu.</p></div></details>
+  <details class="q"><summary>HANDOVER masuk pukul 14.00 dan tidak dibalas. Apa yang terjadi pukul 14.10 dan 14.30?</summary><div class="ans"><p>14.10: pengingat dikirim ke self-chat. 14.30: pelanggan menerima permintaan maaf dan Sabila aktif lagi.</p></div></details>
+  <details class="q"><summary>Pelanggan mengirim foto bukti transfer. Bolehkah admin langsung menjawab "sudah masuk"?</summary><div class="ans"><p>Tidak. Cek mutasi rekening dulu. Konfirmasi hanya setelah dana benar-benar masuk.</p></div></details>
+  <details class="q"><summary>Pelanggan ingin tukar ukuran. Bolehkah admin menyebut syarat retur toko?</summary><div class="ans"><p>Kebijakan retur belum diisi owner. Tanyakan ke owner dan putuskan lebih dulu; jangan menjanjikan sebelum ada keputusan.</p></div></details>
+  <details class="q"><summary>Ada dua HANDOVER: satu bermood tenang (masuk lebih dulu), satu bermood kesal. Mana dulu?</summary><div class="ans"><p>Yang kesal didahulukan, begitu juga yang urgent. Tetap usahakan keduanya terbalas dalam 10 menit.</p></div></details>
+  <details class="q"><summary>Toko tutup mendadak dan admin tidak bisa memantau. Apa yang diketik di self-chat?</summary><div class="ans"><p><code>#diam semua</code>. Setelah toko kembali, ketik <code>#aktif semua</code>. Perhatikan bahwa lama efek <code>#diam</code> belum teruji, jadi pantau dengan <code>#status</code>.</p></div></details>
+</section>
+
+<section id="larangan">
+  <h2><span class="n">10</span>Larangan dan jebakan</h2>
+  <ol>
+    <li><b>Jangan membalas pelanggan dari nomor WhatsApp pribadi.</b> Sistem hanya mendeteksi balasan dari akun nomor toko. Kalau perlu menghubungi pelanggan dari nomor lain, ketik <code>#diam &lt;nomor&gt;</code> di self-chat lebih dulu.</li>
+    <li><b>Jangan menyatakan pembayaran diterima sebelum mutasi dicek.</b> Konfirmasi hanya setelah dana benar-benar masuk di rekening.</li>
+    <li><b>Jangan berhenti membalas di tengah.</b> Selama status ADMIN, pesan baru pelanggan tidak dijawab siapa pun, termasuk Sabila, sampai 60 menit berlalu atau Anda mengetik <code>#aktif</code>. Selesaikan, atau kembalikan chat ke Sabila.</li>
+    <li><b>Jangan lupa <code>#aktif</code> setelah selesai</b> bila sebelumnya memakai <code>#diam</code>.</li>
+    <li><b>Jangan menjanjikan hal yang Sabila sengaja tidak janjikan:</b> tanggal kirim pasti, diskon, kebijakan retur yang belum ditetapkan, dan COD.</li>
+    <li><b>Jangan mengubah file di server atau catatan di VPS.</b> Semua perubahan isi toko dilakukan di Obsidian (bab 11).</li>
+    <li><b>Jangan menyebarkan isi self-chat.</b> Isinya memuat nama dan nomor pelanggan.</li>
+    <li><b>Pesan Anda ikut tersimpan.</b> Setiap balasan admin disimpan ke berkas pembelajaran sistem (waktu, chat, nomor, dan teks balasan). Jangan menulis data sangat pribadi seperti nomor kartu atau kata sandi di chat pelanggan.</li>
+  </ol>
+</section>
+
+<section id="pengetahuan">
+  <h2><span class="n">11</span>Mengubah isi pengetahuan toko</h2>
+  <p>Semua yang dijawab Sabila (harga, ukuran, warna, pembayaran, jadwal kirim, kebijakan retur) berasal dari satu vault Obsidian milik toko. Mengubah jawaban Sabila berarti mengubah catatan di vault, bukan mengetik di chat atau di server.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Yang berubah</th><th>Catatan Obsidian yang diedit</th></tr></thead>
+    <tbody>
+      <tr><td>Harga, paket sablon, promo</td><td>Harga dan Promo</td></tr>
+      <tr><td>Ukuran, warna, bahan, spesifikasi</td><td>Produk → Kaos Lengan Pendek</td></tr>
+      <tr><td>Rekening, jam admin, lama pengerjaan, jadwal kirim, kebijakan retur</td><td>Pengiriman dan Retur</td></tr>
+      <tr><td>Pertanyaan yang sering muncul</td><td>FAQ</td></tr>
+      <tr><td>Hal yang harus diteruskan ke admin</td><td>Di Luar Cakupan</td></tr>
+    </tbody>
+  </table></div>
+  <p>Tulisan <code>[ISI: ...]</code> di catatan berarti belum diisi. Sabila tidak menyebutnya ke pelanggan dan meneruskan ke admin. Setelah owner mengisinya, Sabila otomatis ikut menjawab.</p>
+  <h3>Alur perubahan <small style="font-weight:400;color:var(--muted)">(dikerjakan pemegang akses vault)</small></h3>
+  <ol class="steps">
+    <li>Edit catatan di Obsidian, lalu simpan.</li>
+    <li>Kirim ke GitHub (Obsidian Git: <i>Commit-and-sync</i>, atau perintah <code>git push</code>).</li>
+    <li>Tarik ke agent. Saat ini langkah ini dijalankan manual oleh pemilik sistem dengan skrip <code>vault-update.sh</code>. <span class="todo">ISI: setelah jadwal otomatis terpasang, tulis "otomatis dalam beberapa menit"</span></li>
+    <li>Chat dari pelanggan baru langsung memakai isi baru. Chat lama yang sudah pernah berjalan bisa masih memakai isi sebelumnya sampai sesinya disegarkan oleh pemilik sistem. Setelah mengubah harga atau kebijakan penting, minta pemilik sistem menyegarkan sesi, dan jangan berasumsi chat lama langsung berubah.</li>
+  </ol>
+  <div class="callout stop"><b class="t">Sebelum mengubah angka penting</b><p>Sebelum menyentuh harga, rekening, atau kebijakan retur, selalu konfirmasi dengan owner.</p></div>
+</section>
+
+<section id="harian">
+  <h2><span class="n">12</span>Daftar periksa harian</h2>
+  <p class="prog"><span id="prog">0 dari 5 selesai</span><button class="reset" id="reset" type="button">Kosongkan</button></p>
+  <ul class="chk" id="chk">
+    <li><label><input type="checkbox" id="c1"><span>Awal shift: buka self-chat dan ketik <code>#status</code>. Tangani yang berstatus MENUNGGU_ADMIN.</span></label></li>
+    <li><label><input type="checkbox" id="c2"><span>Balas setiap HANDOVER dalam 10 menit.</span></label></li>
+    <li><label><input type="checkbox" id="c3"><span>Cek mutasi rekening untuk pelanggan yang mengirim bukti transfer.</span></label></li>
+    <li><label><input type="checkbox" id="c4"><span>Catat pertanyaan yang sering datang tetapi belum dijawab Sabila, lalu sampaikan ke owner agar ditambahkan ke vault.</span></label></li>
+    <li><label><input type="checkbox" id="c5"><span>Tutup shift: pastikan tidak ada <code>#diam</code> yang tertinggal, lalu ketik <code>#aktif &lt;nomor&gt;</code> bila perlu.</span></label></li>
+  </ul>
+  <p class="empty">Centang hanya tersimpan di browser ini dan tidak dilihat orang lain.</p>
+</section>
+
+<section id="owner">
+  <h2><span class="n">13</span>Yang belum diisi owner</h2>
+  <p>SOP ini belum final sampai hal berikut dilengkapi. Bagi admin: bila pelanggan menanyakan salah satunya, teruskan ke owner dan jangan menebak.</p>
+  <ul>
+    <li>Kebijakan retur dan komplain (template <code>[ISI: ...]</code> di Pengiriman dan Retur).</li>
+    <li>Jam kerja tim admin manusia dan aturan di luar jam kerja.</li>
+    <li>Tempat dan cara mencatat order setelah pembayaran (tidak ada pencatatan order di sistem agent).</li>
+    <li>Harga grosir, minimal order, biaya desain, dan produk yang ready.</li>
+    <li>Stok per warna dan ukuran, serta jam buka toko.</li>
+    <li>Nama dan nomor admin yang bertugas per shift: <span class="todo">ISI</span></li>
+    <li>Uji perilaku <code>#diam &lt;nomor&gt;</code>: apakah benar tanpa batas waktu atau kembali normal setelah 60 menit.</li>
+  </ul>
+  <div class="callout"><b class="t" style="color:var(--muted)">Catatan untuk pemilik sistem (bukan untuk admin)</b>
+    <ul>
+      <li>Nomor self-chat tertulis di dua tempat dalam pengaturan agent (contoh perintah di <code>SOUL.md</code> dan skill handover) dan di variabel <code>KAGE_CS_SELF_CHAT</code>. Bila nomor CS berganti, ketiganya harus diperbarui.</li>
+      <li>Pengaturan <code>WHATSAPP_FORWARD_OWNER_MESSAGES=true</code> wajib aktif agar balasan admin terdeteksi.</li>
+      <li>Dashboard Hermes memiliki tab <i>Takeover</i> yang menampilkan chat yang sedang didiamkan Sabila beserta sisa waktunya.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>SOP Admin Sabila · Rumah Kaos Ciamis · Sumber isi: sistem handover Sabila dan vault Obsidian toko. Contoh percakapan hanya ilustrasi.</footer>
+</main>
+</div>
+
+<script>
+(function(){
+  var toc=document.getElementById('toc'), mq=window.matchMedia('(min-width:900px)');
+  function sync(){toc.open=mq.matches}
+  sync(); if(mq.addEventListener) mq.addEventListener('change',sync);
+  toc.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(!mq.matches) toc.open=false})});
+
+  var links={}; toc.querySelectorAll('a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a});
+  var secs=Array.prototype.slice.call(document.querySelectorAll('main section'));
+  function spy(){
+    var cur=secs[0].id, y=window.scrollY+120;
+    secs.forEach(function(s){if(s.offsetTop<=y) cur=s.id});
+    Object.keys(links).forEach(function(k){links[k].classList.toggle('on',k===cur)});
+  }
+  window.addEventListener('scroll',spy,{passive:true}); spy();
+
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=b.getAttribute('data-c'), done=function(){b.textContent='tersalin';setTimeout(function(){b.textContent='salin'},1200)};
+      try{navigator.clipboard.writeText(t).then(done,function(){})}catch(e){}
+    });
+  });
+
+  var flt=document.getElementById('flt'), rows=document.querySelectorAll('#kasus tbody tr'), emp=document.getElementById('flt-empty');
+  flt.addEventListener('input',function(){
+    var q=flt.value.trim().toLowerCase(), n=0;
+    rows.forEach(function(r){var m=!q||r.textContent.toLowerCase().indexOf(q)>-1; r.hidden=!m; if(m) n++});
+    emp.hidden=n>0;
+  });
+
+  var boxes=document.querySelectorAll('#chk input'), prog=document.getElementById('prog'), KEY='sop-sabila-harian';
+  function upd(){var n=0;boxes.forEach(function(b){if(b.checked)n++});prog.textContent=n+' dari '+boxes.length+' selesai'}
+  function save(){try{var o={};boxes.forEach(function(b){o[b.id]=b.checked});localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}}
+  try{var s=JSON.parse(localStorage.getItem(KEY)||'{}');boxes.forEach(function(b){b.checked=!!s[b.id]})}catch(e){}
+  boxes.forEach(function(b){b.addEventListener('change',function(){upd();save()})});
+  document.getElementById('reset').addEventListener('click',function(){boxes.forEach(function(b){b.checked=false});upd();save()});
+  upd();
+})();
+</script>
+
+</body></html>
